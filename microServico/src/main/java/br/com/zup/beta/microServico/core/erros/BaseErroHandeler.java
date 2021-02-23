@@ -89,7 +89,7 @@ public class BaseErroHandeler {
         return retorno;
     }
 
-//    @ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
+//    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 //    @ExceptionHandler(MethodArgumentNotValidException.class)
 //    //criado apenas para tratar os erros de dados
 //    public RetornoPadrao setArgumentsInvalidErro(MethodArgumentNotValidException e) {

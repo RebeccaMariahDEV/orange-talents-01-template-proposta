@@ -1,14 +1,14 @@
-package br.com.zup.beta.microServico.model;
+package br.com.zup.beta.microServico.model.proporsta;
 
 import br.com.zup.beta.microServico.core.validador.CpfCnpj;
+import br.com.zup.beta.microServico.model.Status;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -28,12 +28,13 @@ public class NovaProposta {
     @NotBlank
     private String email;
 
-    @NotBlank
-    private String endereco;
+    @NotNull
+    @Embedded
+    private Endereco endereco;
 
     @NotNull
     @PositiveOrZero
-    private Double salario;
+    private BigDecimal salario;
 
     @NotNull
     @CpfCnpj
@@ -42,6 +43,13 @@ public class NovaProposta {
 
     @CreationTimestamp
     private LocalDate criadoEm;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    private boolean processado = false;
+
+
 
     public Long getId() {
         return id;
@@ -59,15 +67,15 @@ public class NovaProposta {
         return email;
     }
 
-    public String getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public Double getSalario() {
+    public BigDecimal getSalario() {
         return salario;
     }
 
-    public String getDocumento_id() {
+    public String getDocumentoId() {
         return documentoId;
     }
 
@@ -75,8 +83,15 @@ public class NovaProposta {
         return criadoEm;
     }
 
+    public boolean isProcessado() {
+        return processado;
+    }
 
-    public void setProposta(String nome, String sobrenome, String email, String endereco, Double salario,
+    public Status getStatus(String resultadoSolicitacao) {
+        return Status.resultado(resultadoSolicitacao);
+    }
+
+    public void setProposta(String nome, String sobrenome, String email, Endereco endereco, BigDecimal salario,
                             String documentoId) {
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -85,4 +100,14 @@ public class NovaProposta {
         this.salario = salario;
         this.documentoId = documentoId;
     }
+
+    public void atualizaStatus(String resultadoSolicitacao) {
+        this.status = Status.resultado(resultadoSolicitacao);
+    }
+
+    public void setProcessado(){
+        this.processado = true;
+    }
+
+
 }

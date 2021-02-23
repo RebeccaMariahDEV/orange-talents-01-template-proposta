@@ -1,11 +1,14 @@
 package br.com.zup.beta.microServico.dto;
 
 import br.com.zup.beta.microServico.core.validador.CpfCnpj;
+import br.com.zup.beta.microServico.model.proporsta.Endereco;
 
+import javax.persistence.Embedded;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 public class NovaPropostaDto {
 
@@ -19,12 +22,13 @@ public class NovaPropostaDto {
     @NotBlank
     private String email;
 
-    @NotBlank
-    private String endereco;
+    @Embedded
+    @NotNull
+    private Endereco endereco;
 
     @NotNull
     @PositiveOrZero
-    private Double salario;
+    private BigDecimal salario;
 
     @NotNull
     @CpfCnpj
@@ -54,19 +58,19 @@ public class NovaPropostaDto {
         this.email = email;
     }
 
-    public String getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 
-    public Double getSalario() {
+    public BigDecimal getSalario() {
         return salario;
     }
 
-    public void setSalario(Double salario) {
+    public void setSalario(BigDecimal salario) {
         this.salario = salario;
     }
 
