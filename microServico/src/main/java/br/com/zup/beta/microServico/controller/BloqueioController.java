@@ -83,7 +83,6 @@ public class BloqueioController {
                 return ResponseEntity.badRequest().build();
             }
         }
-
         return ResponseEntity.status(HttpStatus.OK).build();
 
     }
