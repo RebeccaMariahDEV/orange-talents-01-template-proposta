@@ -143,11 +143,9 @@ services:
 #        context: .
     image: rebeccamariah/microserviso
     ports:
-    - 8082:8083
+    - 8082:8082
 
 volumes:
   grafana-volume:
   prometheus-volume:
   postgres-volume:
-
-#- ./prometheus.yml:/etc/prometheus/prometheus.yml

@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Service
 public class IpUserAgent {
+
     public static final String IP = "ip";
     public static final String USER_AGENT = "user-agent";
 

@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configurers.oauth2.ser
 
 @Configuration
 @EnableWebSecurity
-public class SecurtyConfig extends WebSecurityConfigurerAdapter {
+public class SecurtyConfig extends  WebSecurityConfigurerAdapter {
 
     //        @Override
 //    protected void configure(HttpSecurity http) throws Exception {
@@ -26,9 +26,13 @@ public class SecurtyConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "api/propostas").hasAuthority("SCOPE_write")
                 .antMatchers(HttpMethod.GET, "api/cartoes/**").hasAuthority("SCOPE_read")
                 .antMatchers(HttpMethod.POST, "biometrias/**").hasAuthority("SCOPE_write")
+                .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .cors().disable()
+                .csrf().disable()
+                .headers().frameOptions().disable()
+                //.cors()
+                .disable()
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 //        ).oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
     }

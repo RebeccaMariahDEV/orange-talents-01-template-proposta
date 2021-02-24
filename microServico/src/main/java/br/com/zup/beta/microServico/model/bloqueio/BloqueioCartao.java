@@ -1,13 +1,9 @@
 package br.com.zup.beta.microServico.model.bloqueio;
 
 import br.com.zup.beta.microServico.model.cartoes.CartoesGerados;
-import jdk.jfr.Timestamp;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.engine.internal.Cascade;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class BloqueioCartao {
@@ -16,18 +12,45 @@ public class BloqueioCartao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String sistemaResponsavel;
-
     private String userAgent;
 
     private String ipCliente;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idcartao", referencedColumnName = "id")
+    @JoinColumn(name = "idcartao", referencedColumnName = "idcartao")
     private CartoesGerados idcartao;
-    @Timestamp
-    private LocalDate bloqueadoEm;
 
-    private boolean validadorCartao;
+    @CreationTimestamp
+    private LocalDateTime bloqueadoEm;
 
+    @Deprecated
+    public BloqueioCartao(){
+
+    }
+
+    public BloqueioCartao( String userAgent, String ipCliente, CartoesGerados idcartao) {
+        this.userAgent = userAgent;
+        this.ipCliente = ipCliente;
+        this.idcartao = idcartao;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUserAgent() {
+        return userAgent;
+    }
+
+    public String getIpCliente() {
+        return ipCliente;
+    }
+
+    public CartoesGerados getIdcartao() {
+        return idcartao;
+    }
+
+    public LocalDateTime getBloqueadoEm() {
+        return bloqueadoEm;
+    }
 }

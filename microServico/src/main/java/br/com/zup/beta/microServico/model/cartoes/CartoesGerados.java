@@ -21,6 +21,8 @@ public class CartoesGerados {
     @Timestamp
     private LocalDate geradoEm;
 
+    private boolean ativo = true;
+
     @Deprecated
     public CartoesGerados() {
     }
@@ -45,5 +47,13 @@ public class CartoesGerados {
 
     public LocalDate getGeradoEm() {
         return geradoEm;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }
