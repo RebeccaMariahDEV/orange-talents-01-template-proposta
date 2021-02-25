@@ -3,7 +3,6 @@ package br.com.zup.beta.microServico.repository;
 import br.com.zup.beta.microServico.model.cartoes.CartoesGerados;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 import java.util.Optional;
 
 

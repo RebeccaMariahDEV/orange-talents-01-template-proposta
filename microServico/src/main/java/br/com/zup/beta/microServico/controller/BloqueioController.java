@@ -63,19 +63,21 @@ public class BloqueioController {
         // registrar bloqueio do cartão
         var userAgente = new IpUserAgent().getRequestHeaders(request);
         BloqueioCartao bloqueioCartao = new BloqueioCartao(userAgente.get("user-agent"), userAgente.get("ip"), cartao);
+        bloqueioRepository.save(bloqueioCartao);
 
         //feing para avisar o sistema legado
-        Optional<BloqueioCartao> findIdcartao = bloqueioRepository.findById (id);
+        Optional<BloqueioCartao> findIdcartao = bloqueioRepository.findById(id);
         if (findIdcartao.isPresent()){
             BloqueioCartoes.BloqueioRequest requeste = new BloqueioCartoes.BloqueioRequest(findIdcartao.get());
             try {
                 BloqueioCartoes.BloqueioResponse resposta  =
-                        bloqueioCartoes.bloqueiaCartao(new BloqueioCartoes.BloqueioRequest(bloqueioCartao),
-                                requeste.getSistemaResponsave());
+                        bloqueioCartoes.bloqueiaCartao(
+                                new BloqueioCartoes.BloqueioRequest(bloqueioCartao),
+                                cartao.getcartaoId());
+
                 System.out.println(bloqueioCartao.getUserAgent());
                 System.out.println(resposta);
                 System.out.println("foi aqui");
-                bloqueioRepository.save(bloqueioCartao);
                 cartoesGeradosRepository.save(cartao);
                 return ResponseEntity.ok().body(resposta + "Cartão bloqueado com sucesso");
             }catch (FeignException exception){
