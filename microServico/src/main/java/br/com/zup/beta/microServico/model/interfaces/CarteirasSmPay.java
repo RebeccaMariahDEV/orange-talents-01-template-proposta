@@ -1,6 +1,7 @@
 package br.com.zup.beta.microServico.model.interfaces;
 
 import br.com.zup.beta.microServico.model.carteirasPay.CarteirasPay;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ public interface CarteirasSmPay {
         private String resultado;
         private String id;
 
+        @JsonCreator //deserializa o json
         public PayResponse(String resultado, String id) {
             this.resultado = resultado;
             this.id = id;

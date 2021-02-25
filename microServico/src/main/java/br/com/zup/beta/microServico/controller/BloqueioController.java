@@ -74,15 +74,13 @@ public class BloqueioController {
                         bloqueioCartoes.bloqueiaCartao(
                                 new BloqueioCartoes.BloqueioRequest(bloqueioCartao),
                                 cartao.getcartaoId());
-
-                System.out.println(bloqueioCartao.getUserAgent());
-                System.out.println(resposta);
-                System.out.println("foi aqui");
+//                System.out.println(bloqueioCartao.getUserAgent());
+//                System.out.println(resposta);
+//                System.out.println("foi aqui");
                 cartoesGeradosRepository.save(cartao);
                 return ResponseEntity.ok().body(resposta + "Cartão bloqueado com sucesso");
-            }catch (FeignException exception){
-                System.out.println("Deu ruim");
-                return ResponseEntity.badRequest().build();
+            } catch (FeignException exception) {
+                return ResponseEntity.status(exception.status()).build();
             }
         }
         return ResponseEntity.status(HttpStatus.OK).build();

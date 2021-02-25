@@ -1,6 +1,7 @@
 package br.com.zup.beta.microServico.model.interfaces;
 
 import br.com.zup.beta.microServico.model.viagem.AvisoViagem;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,7 @@ public interface AvisosViagens {
             return validoAte;
         }
 
+
         public AvisoRequest(AvisoViagem avisoViagem) {
             this.destino = avisoViagem.getDestinoViagem();
             this.validoAte = avisoViagem.getTerminoViagem();
@@ -38,6 +40,7 @@ public interface AvisosViagens {
 
         private String resultado;
 
+        @JsonCreator //deserializa o json
         public AvisoResponse(String resultado) {
             this.resultado = resultado;
         }

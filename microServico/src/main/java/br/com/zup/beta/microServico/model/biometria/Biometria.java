@@ -1,5 +1,6 @@
 package br.com.zup.beta.microServico.model.biometria;
 
+import br.com.zup.beta.microServico.core.config.segurança.CryptoConverter;
 import br.com.zup.beta.microServico.model.cartoes.CartoesGerados;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -17,6 +18,7 @@ public class Biometria {
     private Long id;
 
     @NotBlank
+    @Convert(converter = CryptoConverter.class)
     private String biometria;
 
     @OneToOne(cascade = CascadeType.ALL)

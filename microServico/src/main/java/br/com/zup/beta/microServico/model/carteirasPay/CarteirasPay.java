@@ -26,6 +26,7 @@ public class CarteirasPay {
     private String email;
 
     @NotBlank
+//    @Enumerated(EnumType.STRING)
     private String carteira;
 
     @CreationTimestamp

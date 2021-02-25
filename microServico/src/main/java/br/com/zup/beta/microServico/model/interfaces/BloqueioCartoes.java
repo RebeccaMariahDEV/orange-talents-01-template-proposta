@@ -1,6 +1,7 @@
 package br.com.zup.beta.microServico.model.interfaces;
 
 import br.com.zup.beta.microServico.model.bloqueio.BloqueioCartao;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,7 @@ public interface BloqueioCartoes {
             return resultado;
         }
 
+        @JsonCreator //deserializa o json
         public BloqueioResponse(String resultado) {
             this.resultado = resultado;
         }

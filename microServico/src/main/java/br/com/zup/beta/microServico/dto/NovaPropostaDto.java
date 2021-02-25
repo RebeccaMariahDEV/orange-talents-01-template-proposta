@@ -1,8 +1,10 @@
 package br.com.zup.beta.microServico.dto;
 
+import br.com.zup.beta.microServico.core.config.segurança.CryptoConverter;
 import br.com.zup.beta.microServico.core.validador.CpfCnpj;
 import br.com.zup.beta.microServico.model.proporsta.Endereco;
 
+import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -32,6 +34,7 @@ public class NovaPropostaDto {
 
     @NotNull
     @CpfCnpj
+    @Convert(converter = CryptoConverter.class)
     private String documentoId;
 
     public String getNome() {

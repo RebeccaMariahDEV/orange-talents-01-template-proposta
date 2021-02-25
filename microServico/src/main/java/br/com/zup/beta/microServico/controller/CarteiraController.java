@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -36,6 +37,7 @@ public class CarteiraController {
         this.cartoesGeradosRepository = cartoesGeradosRepository;
     }
 
+    @Transactional
     @PostMapping("carteiras/{id}")
     public ResponseEntity<?> associaCarteira(@PathVariable(value = "id") Long id,
                                              @RequestBody @Valid CarteirasPayDto carteirasPayDto){
@@ -59,9 +61,8 @@ public class CarteiraController {
                     request);
 
             return ResponseEntity.ok().build();
-        }catch (FeignException exception){
-            System.out.println("hoje não querida");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } catch (FeignException exception) {
+            return ResponseEntity.status(exception.status()).build();
         }
 
 

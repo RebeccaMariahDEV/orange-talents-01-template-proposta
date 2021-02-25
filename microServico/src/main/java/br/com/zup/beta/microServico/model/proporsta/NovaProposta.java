@@ -1,5 +1,6 @@
 package br.com.zup.beta.microServico.model.proporsta;
 
+import br.com.zup.beta.microServico.core.config.segurança.CryptoConverter;
 import br.com.zup.beta.microServico.core.validador.CpfCnpj;
 import br.com.zup.beta.microServico.model.Status;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,9 +37,10 @@ public class NovaProposta {
     @PositiveOrZero
     private BigDecimal salario;
 
-    @NotNull
+    @NotBlank
     @CpfCnpj
     @Column(unique = true, nullable = false)
+    @Convert(converter = CryptoConverter.class)
     private String documentoId;
 
     @CreationTimestamp

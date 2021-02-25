@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -39,6 +40,7 @@ public class AvisoViagemController {
 
     }
 
+    @Transactional
     @PostMapping("avisos/{id}")
     public ResponseEntity<?> avisoDeViagem(@RequestBody @Valid AvisoViagemDto avisoViagemDto,
                                            @PathVariable("id") Long id,
@@ -65,14 +67,9 @@ public class AvisoViagemController {
             AvisosViagens.AvisoResponse response =
                     avisosViagens.avisos(avisoRequest, findIdCartao.get().getcartaoId());
 
-            System.out.println(response);
-
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (FeignException exception) {
-            System.out.println("deu ruim 2 "+exception.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(exception.status()).build();
         }
-
-
     }
 }

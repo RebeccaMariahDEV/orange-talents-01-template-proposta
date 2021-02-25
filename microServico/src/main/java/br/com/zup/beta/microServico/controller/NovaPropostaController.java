@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Optional;
@@ -48,7 +49,7 @@ public class NovaPropostaController extends BaseController {
 
     }
 
-
+    @Transactional
     @PostMapping("/propostas")
     public ResponseEntity<?> criarProposta(@Valid @RequestBody NovaPropostaDto novaPropostaDto, UriComponentsBuilder uriBuilder) {
         NovaProposta novaProposta = new NovaProposta();
@@ -113,7 +114,8 @@ public class NovaPropostaController extends BaseController {
     }
 
     //lembrar de mudar ao fim do programa
-    @Scheduled(cron = "0 0/1 * * * *")
+    @Transactional
+    @Scheduled(cron = "0 0/10 * * * *")
     public void atualizacao() {
         var propostas = novaPropostaRepository.findByStatusAndProcessado(Status.LEGIVEL, false);
 
