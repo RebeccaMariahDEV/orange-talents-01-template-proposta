@@ -55,13 +55,15 @@ public class AvisoViagemController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cartão não encontrado ");
         }
 
+
+        try {
         //criando os dados para tabela de avisos
         AvisoViagem avisoViagem = new AvisoViagem(avisoViagemDto.getDestinoViagem(), avisoViagemDto.getTerminoViagem(),
                 userAgente.get("user-agent"), userAgente.get("ip"), findIdCartao.get());
         avisoViagemRepository.save(avisoViagem);
 
-        try {
-            //aviso da viagem
+
+            //aviso da viagem para sistema legado
             AvisosViagens.AvisoRequest avisoRequest = new AvisosViagens.AvisoRequest(avisoViagem);
 
             AvisosViagens.AvisoResponse response =

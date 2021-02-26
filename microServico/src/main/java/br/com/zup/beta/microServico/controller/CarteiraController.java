@@ -51,11 +51,11 @@ public class CarteiraController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cartão não encontrado ");
         }
 
+        try {
         //criando os dados para tabela de carteiras
         CarteirasPay carteirasPay = new CarteirasPay(carteirasPayDto.getEmail(), carteirasPayDto.getCarteira());
         carteirasPayRepository.save(carteirasPay);
 
-        try {
             CarteirasSmPay.PayRequest request = new CarteirasSmPay.PayRequest(carteirasPay);
             CarteirasSmPay.PayResponse resposta = carteirasSmPay.carteiraPay(findIdCartao.get().getcartaoId(),
                     request);
